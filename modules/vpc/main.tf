@@ -45,6 +45,16 @@ resource "aws_nat_gateway" "ngw" {
   }
 }
 
+resource "aws_vpc_peering_connection" "peering" {
+  peer_owner_id = var.account_no
+  peer_vpc_id   = var.default_vpc_id
+  vpc_id        = aws_vpc.main.id
+  auto_accept   = true
+  tags = {
+    Name = "peering-from-default-vpc-to-${var.env}-vpc"
+  }
+}
+
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
 
@@ -58,12 +68,11 @@ resource "aws_route_table" "public" {
   }
 }
 
-
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = "0.0.1.0/24"
     gateway_id = aws_nat_gateway.ngw.id
   }
 
