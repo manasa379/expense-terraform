@@ -11,7 +11,7 @@ resource "aws_subnet" "public_subnets" {
   cidr_block = var.public_subnets[count.index]
   availability_zone = var.azs[count.index]
   tags = {
-    Name = "public-subnet-${count.index}"
+    Name = "public-subnet-${count.index+1}"
   }
 }
 
@@ -21,7 +21,7 @@ resource "aws_subnet" "private_subnets" {
   cidr_block = var.private_subnets[count.index]
   availability_zone = var.azs[count.index]
   tags = {
-    Name = "private-subnet-${count.index}"
+    Name = "private-subnet-${count.index+1}"
   }
 }
 
@@ -36,5 +36,13 @@ resource "aws_eip" "ngw" {
   domain   = "vpc"
 }
 
+resource "aws_nat_gateway" "ngw" {
+  allocation_id = aws_eip.ngw.id
+  subnet_id     = aws_subnet.public_subnets[0].id
+
+  tags = {
+    Name = "${var.env}-ngw"
+  }
+}
 
 
