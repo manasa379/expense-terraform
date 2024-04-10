@@ -3,6 +3,10 @@ resource "aws_security_group" "security_group" {
   description = "${var.env}-${var.alb_type}-sg"
   vpc_id      = var.vpc_id
 }
+tags = {
+  Name = "${var.env}-${var.alb_type}-sg"
+}
+
 ingress {
   description = "HTTP"
   from_port   = 80
