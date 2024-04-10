@@ -10,3 +10,12 @@ module "vpc" {
   default_route_table_id = var.default_route_table_id
   account_no             = var.account_no
 }
+
+module "public-lb" {
+  source = "./modules/alb"
+  alb_type = "public"
+  env      = var.env
+  internal = false
+  subnets  = module.vpc.public_subnets
+  vpc_id   = module.vpc.vpc_id
+}
