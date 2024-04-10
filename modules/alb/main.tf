@@ -8,14 +8,18 @@ resource "aws_security_group" "security_group" {
 }
 
 ingress {
-    from_port         = 80
-    ip_protocol       = "tcp"
-    to_port           = 80
-    cidr_blocks       = [var.alb_sg_allow_cidr]
+  description = "HTTP"
+  from_port   = 80
+  to_port     = 80
+  protocol    = "tcp"
+  cidr_blocks = [var.alb_sg_allow_cidr]
 }
-egress    {
-    cidr_blocks       = ["0.0.0.0/0"]
-    ip_protocol       = "-1"
+
+egress {
+  from_port   = 0
+  to_port     = 0
+  protocol    = "-1"
+  cidr_blocks = ["0.0.0.0/0"]
 }
 
 resource "aws_lb" "alb_type" {
