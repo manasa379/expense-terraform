@@ -8,16 +8,16 @@ resource "aws_security_group" "security_group" {
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "ingress" {
+resource "aws_vpc_security_group_ingress" "ingress" {
   security_group_id = aws_security_group.security_group.id
   from_port         = 80
   ip_protocol       = "tcp"
   to_port           = 80
 }
 
-resource "aws_vpc_security_group_egress_rule" "egress" {
+resource "aws_vpc_security_group_egress" "egress" {
   security_group_id = aws_security_group.security_group.id
-  cidr_blocks       = "0.0.0.0/0"
+  cidr_blocks       = ["0.0.0.0/0"]
   ip_protocol       = "-1"
 }
 
