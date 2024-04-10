@@ -2,22 +2,20 @@ resource "aws_security_group" "security_group" {
   name        = "${var.env}-${var.alb_type}-sg"
   description = "${var.env}-${var.alb_type}-sg"
   vpc_id      = var.vpc_id
+  tags = {
+    Name = "${var.env}-${var.alb_type}-sg"
+  }
 }
-
- ingress {
-  security_group_id = aws_security_group.security_group.id
-  from_port         = 80
-  ip_protocol       = "tcp"
-  to_port           = 80
+  ingress {
+    security_group_id = aws_security_group.security_group.id
+    from_port         = 80
+    ip_protocol       = "tcp"
+    to_port           = 80
 }
-
-egress {
-  security_group_id = aws_security_group.security_group.id
-  cidr_blocks       = ["0.0.0.0/0"]
-  ip_protocol       = "-1"
-}
-tags = {
-  Name = "${var.env}-${var.alb_type}-sg"
+  egress {
+    security_group_id = aws_security_group.security_group.id
+    cidr_blocks       = ["0.0.0.0/0"]
+    ip_protocol       = "-1"
 }
 
 resource "aws_lb" "alb_type" {
