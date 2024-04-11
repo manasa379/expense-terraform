@@ -28,5 +28,5 @@ module "private-lb" {
   internal = true
   subnets  = module.vpc.private_subnets
   vpc_id   = module.vpc.vpc_id
-  alb_sg_allow_cidr = alb_sg_allow_cidr
+  alb_sg_allow_cidr = var.vpc_cidr
 }
