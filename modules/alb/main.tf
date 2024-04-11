@@ -7,18 +7,17 @@ tags = {
   Name = "${var.env}-${var.alb_type}-sg"
 }
 
-ingress {
-  description = "HTTP"
-  from_port   = 80
-  to_port     = 80
-  protocol    = "tcp"
-  cidr_blocks = [var.alb_sg_allow_cidr]
+resource "aws_vpc_security_group_ingress_rule" "security_group"  {
+  security_group_id = aws_security_group.security_group.id
+  cidr_blocks       =  [var.alb_sg_allow_cidr]
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
 }
-egress {
-  from_port   = 0
-  to_port     = 0
-  protocol    = "-1"
-  cidr_blocks = ["0.0.0.0/0"]
+resource "aws_vpc_security_group_egress_rule" "security_group" {
+  security_group_id = aws_security_group.security_group.id
+  cidr_blocks       = "0.0.0.0/0"
+  ip_protocol       = "-1"
 }
 
 resource "aws_lb" "alb_type" {
