@@ -3,9 +3,6 @@ resource "aws_security_group" "security_group" {
   description = "${var.env}-${var.alb_type}-sg"
   vpc_id      = var.vpc_id
 }
-tags = {
-  Name = "${var.env}-${var.alb_type}-sg"
-}
 
 ingress {
   description = "HTTP"
@@ -19,6 +16,9 @@ egress {
   to_port     = 0
   protocol    = "-1"
   cidr_blocks = ["0.0.0.0/0"]
+}
+tags = {
+  Name = "${var.env}-${var.alb_type}-sg"
 }
 
 resource "aws_lb" "alb_type" {
