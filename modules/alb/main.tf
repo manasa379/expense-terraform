@@ -3,10 +3,6 @@ resource "aws_security_group" "security_group" {
   description = "${var.env}-${var.alb_type}-sg"
   vpc_id      = var.vpc_id
 }
-tags = {
-  Name = "${var.env}-${var.alb_type}-sg"
-}
-
 resource "aws_vpc_security_group_ingress_rule" "security_group"  {
   security_group_id = aws_security_group.security_group.id
   cidr_blocks       =  [var.alb_sg_allow_cidr]
@@ -18,6 +14,9 @@ resource "aws_vpc_security_group_egress_rule" "security_group" {
   security_group_id = aws_security_group.security_group.id
   cidr_blocks       = "0.0.0.0/0"
   ip_protocol       = "-1"
+}
+tags = {
+  Name = "${var.env}-${var.alb_type}-sg"
 }
 
 resource "aws_lb" "alb_type" {
