@@ -20,9 +20,6 @@ egress {
   protocol    = "-1"
   cidr_blocks = ["0.0.0.0/0"]
 }
-tags = {
-  Name = "${var.env}-${var.alb_type}-sg"
-}
 
 resource "aws_lb" "alb_type" {
   name               = "${var.env}-${var.alb_type}"
