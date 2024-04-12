@@ -34,7 +34,7 @@ module "private-lb" {
 module "frontend" {
   source = "./modules/app"
   app_port = 80
-  component = frontend
+  component = "frontend"
   env = var.env
   instance_type = "t3.micro"
   subnets = module.vpc.private_subnets
