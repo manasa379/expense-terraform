@@ -74,6 +74,7 @@ resource "aws_launch_template" "template" {
   image_id               = data.aws_ami.ami.image_id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.security_group.id]
+
   iam_instance_profile {
     name = aws_iam_instance_profile.instance_profile.name
   }
