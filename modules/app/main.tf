@@ -62,7 +62,7 @@ resource "aws_iam_role" "role" {
     })
   }
   tags = {
-    tag-key = "tag-value"
+    tag-key = "${var.env}-${var.component}-role"
   }
 }
 resource "aws_launch_template" "template" {
@@ -70,7 +70,12 @@ resource "aws_launch_template" "template" {
   image_id               = data.aws_ami.ami.image_id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.security_group.id]
+
   user_data              = base64encode(templatefile("${path.module}/userdata.sh", {
+
+  }
+    "aws_iam_instance_profile"  {
+    name = aws_iam_role.role.name
     role_name              = var.component
   }))
   tag_specifications {
