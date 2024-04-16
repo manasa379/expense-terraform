@@ -10,6 +10,6 @@ resource "aws_subnet" "public_subnets" {
   cidr_block        =  var.public_subnets[count.index]
   availability_zone = var.azs[count.index]
   tags = {
-    Name = "public_subnet_$(count.index)"
+    Name = "public_subnet_${count.index}"
   }
 }
