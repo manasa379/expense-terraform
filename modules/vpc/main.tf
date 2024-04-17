@@ -40,7 +40,6 @@ resource "aws_nat_gateway" "ngw" {
     Name = "${var.env}-ngw"
   }
 }
-
 resource "aws_vpc_peering_connection" "peering" {
   peer_owner_id = var.account_no
   peer_vpc_id   = var.default_vpc_id
