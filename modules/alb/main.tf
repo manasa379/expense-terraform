@@ -5,16 +5,16 @@ resource "aws_security_group" "security_group" {
 
   ingress {
     description       = "HTTP"
-    cidr_blocks       = [var.alb_sg_allow_cidr]
     from_port         = 80
-    ip_protocol       = "tcp"
     to_port           = 80
+    ip_protocol       = "tcp"
+    cidr_blocks       = [var.alb_sg_allow_cidr]
  }
   egress {
-    cidr_blocks       = ["0.0.0.0/0"]
     from_port         = 0
-    ip_protocol       = "-1"
     to_port           = 0
+    ip_protocol       = "-1"
+    cidr_blocks       = ["0.0.0.0/0"]
  }
    tags = {
       Name = "${var.env}-${var.alb_type}-sg"
