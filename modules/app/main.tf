@@ -39,8 +39,9 @@ resource "aws_autoscaling_group" "asg" {
   max_size            = 1
   min_size            = 1
   vpc_zone_identifier = var.subnets
-}
-launch_template {
-  id      = aws_launch_template.template.id
-  version = "$latest"
+
+  launch_template {
+    id      = aws_launch_template.template.id
+    version = "$latest"
+  }
 }
