@@ -7,13 +7,13 @@ resource "aws_security_group" "security_group" {
     description       = "HTTP"
     from_port         = 80
     to_port           = 80
-    ip_protocol       = "tcp"
+    protocol          = "tcp"
     cidr_blocks       = [var.alb_sg_allow_cidr]
  }
   egress {
     from_port         = 0
     to_port           = 0
-    ip_protocol       = "-1"
+    protocol          = "-1"
     cidr_blocks       = ["0.0.0.0/0"]
  }
    tags = {
