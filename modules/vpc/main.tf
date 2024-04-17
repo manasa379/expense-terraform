@@ -47,8 +47,8 @@ resource "aws_vpc_peering_connection" "peering" {
   vpc_id        = aws_vpc.main.id
   auto_accept   = true
 }
-tags = {
-  Name = "peering-from-default-to_${var.env}-vpc"
+  tags = {
+    Name = "peering-from-default-to_${var.env}-vpc"
 }
 
 resource "aws_route_table" "public" {
