@@ -4,22 +4,30 @@ resource "aws_security_group" "security_group" {
   vpc_id      = var.vpc_id
 
   ingress {
-    description       = "HTTP"
-    from_port         = var.app_port
-    to_port           = var.app_port
-    protocol          = "tcp"
-    cidr_blocks       = [var.vpc_cidr]
+    description = "HTTP"
+    from_port   = var.app_port
+    to_port     = var.app_port
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
   }
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.bastion_node_cidr
+  }
+
   egress {
-    from_port         = 0
-    to_port           = 0
-    protocol          = "-1"
-    cidr_blocks       = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    }
+    tags = {
+      Name = "${var.env}-${var.component}-sg"
+    }
   }
-  tags = {
-    Name = "${var.env}-${var.component}-sg"
-  }
-}
 resource "aws_launch_template" "template" {
   name                   = "${var.env}-${var.component}"
   image_id               = data.aws_ami.ami.id
@@ -28,15 +36,15 @@ resource "aws_launch_template" "template" {
   user_data              = base64encode(templatefile("${path.module}/userdata.sh", {
     role_name = var.component,
     env       = var.env
-  } ))
+  }))
 
-  tag_specifications {
-    resource_type = "instance"
-    tags          = {
-      Name = "${var.env}-${var.component}"
+    tag_specifications {
+      resource_type = "instance"
+      tags          = {
+        Name = "${var.env}-${var.component}"
+      }
     }
   }
-}
 resource "aws_autoscaling_group" "asg" {
   name                = "${var.env}-${var.component}"
   desired_capacity    = 1
@@ -47,5 +55,5 @@ resource "aws_autoscaling_group" "asg" {
   launch_template {
     id      = aws_launch_template.template.id
     version = "$Latest"
+    }
   }
-}
