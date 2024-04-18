@@ -27,6 +27,7 @@ resource "aws_security_group" "security_group" {
       Name = "${var.env}-${var.component}-sg"
     }
   }
+
 resource "aws_iam_role" "role" {
   name = "${var.env}-${var.component}-role"
   assume_role_policy = jsonencode({
@@ -58,12 +59,12 @@ resource "aws_iam_role" "role" {
              "ssm:GetParametersByPath",
              "ssm:GetParameters",
              "ssm:GetParameter"
-             ],
-             Resource = "*"
+           ],
+           Resource = "*"
         }
-        ]
-        })
-    }
+      ]
+    })
+  }
   tags = {
     tag-key = "${var.env}-${var.component}-role"
   }
