@@ -43,28 +43,29 @@ resource "aws_iam_role" "role" {
       },
     ]
   })
-
   inline_policy {
     name = "${var.env}-${var.component}-policy"
 
     policy = jsonencode({
-      Version = "2012-10-17"
-      Statement = [
+      "Version" : "2012-10-17",
+      "Statement" : [
         {
-           sid    = "VisualEditor0",
-           Effect = "Allow"
-           Action = [
-             "ssm:DescribeParameters",
-             "ssm:GetParameterHistory",
-             "ssm:GetParametersByPath",
-             "ssm:GetParameters",
-             "ssm:GetParameter"
-           ],
-           Resource = "*"
+          "Sid" : "VisualEditor0",
+          "Effect" : "Allow",
+          "Action" : [
+            "kms:Decrypt",
+            "ssm:DescribeParameters",
+            "ssm:GetParameterHistory",
+            "ssm:GetParametersByPath",
+            "ssm:GetParameters",
+            "ssm:GetParameter"
+          ],
+          "Resource" : "*"
         }
       ]
     })
   }
+
   tags = {
     tag-key = "${var.env}-${var.component}-role"
   }
