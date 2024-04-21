@@ -39,5 +39,4 @@ resource "aws_rds_cluster" "main" {
   backup_retention_period = 5
   preferred_backup_window = "07:00-09:00"
   vpc_security_group_ids  = [aws_security_group.main.id]
-  skip_final_snapshot     = false
 }
