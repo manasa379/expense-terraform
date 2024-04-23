@@ -19,15 +19,15 @@ module "vpc" {
  # subnets                 = module.vpc.public_subnets
  # vpc_id                  = module.vpc.vpc_id
 #}
- # module "private-lb" {
-  # source                  = "./modules/alb"
-  #  alb_sg_allow_cidr       = var.vpc_cidr
-  #alb_type                = "private"
-  #env                     = var.env
-  #internal                = true
-  #subnets                 = module.vpc.private_subnets
-  #vpc_id                  = module.vpc.vpc_id
-#}
+module "private-lb" {
+  source                  = "./modules/alb"
+  alb_sg_allow_cidr       = var.vpc_cidr
+  alb_type                = "private"
+  env                     = var.env
+  internal                = true
+  subnets                 = module.vpc.private_subnets
+  vpc_id                  = module.vpc.vpc_id
+}
 #module "frontend" {
  # source                  = "./modules/app"
  # app_port                = 80
