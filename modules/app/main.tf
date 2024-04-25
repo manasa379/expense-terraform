@@ -101,9 +101,16 @@ resource "aws_autoscaling_group" "asg" {
   max_size            = 1
   min_size            = 1
   vpc_zone_identifier = var.subnets
+  target_group_arns   = [aws_lb_target_group.tg.arn]
 
   launch_template {
     id      = aws_launch_template.template.id
     version = "$Latest"
     }
   }
+resource "aws_lb_target_group" "tg" {
+  name     = "${var.env}-${var.component}"
+  port     = var.app_port
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+}
