@@ -109,7 +109,7 @@ resource "aws_autoscaling_group" "asg" {
     }
   }
 resource "aws_lb_target_group" "tg" {
-  name         = "${var.env}-${var.component}"
+  name         = "${var.env}-${var.component}-tg"
   port         = var.app_port
   protocol     = "HTTP"
   vpc_id       = var.vpc_id
@@ -121,6 +121,5 @@ resource "aws_lb_target_group" "tg" {
     port                   = var.app_port
     path                   = "/health"
     timeout                = 3
-
   }
 }
