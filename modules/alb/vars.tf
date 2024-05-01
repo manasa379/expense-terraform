@@ -7,3 +7,4 @@ variable "subnets" {}
 variable "dns_name" {}
 variable "zone_id" {}
 variable "tg_arn" {}
+
