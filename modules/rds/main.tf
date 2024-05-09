@@ -44,8 +44,8 @@ resource "aws_rds_cluster" "main" {
 resource "aws_rds_cluster_instance" "main" {
   count              = 1
   identifier         = "${var.env}-${var.component}-instance-${count.index}"
-  cluster_identifier = aws_rds_cluster.main.id
-  instance_class     = var.instance_class
-  engine             = aws_rds_cluster.main.engine
+  cluster_identifier =  aws_rds_cluster.main.id
+  instance_class     =  var.instance_class
+  engine             =  aws_rds_cluster.main.engine
   engine_version     =  aws_rds_cluster.main.engine_version
 }
