@@ -48,6 +48,7 @@ module "frontend" {
   desired_capacity        = var.desired_capacity
   max_size                = var.max_size
   min_size                = var.min_size
+  prometheus_cidr         = var.prometheus_cidr
 }
 
 module "backend" {
@@ -64,6 +65,7 @@ module "backend" {
   desired_capacity        = var.desired_capacity
   max_size                = var.max_size
   min_size                = var.min_size
+  prometheus_cidr         = var.prometheus_cidr
 }
 
 module "mysql" {
