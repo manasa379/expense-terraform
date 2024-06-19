@@ -11,7 +11,7 @@ pipeline {
                  sh 'terraform plan -var-file=env-${ENV}/input.tfvars'
                }
            }
-       stage('Terraform Plan')
+       stage('Terraform Apply')
            steps {
              sh 'terraform apply -var-file=env-${ENV}/input.tfvars -auto-approve'
 
