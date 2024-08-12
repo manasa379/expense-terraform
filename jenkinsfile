@@ -19,7 +19,7 @@ pipeline {
 
        stage('Terraform Apply') {
            steps {
-             sh 'terraform $(ACTION) -var-file=env-${ENV}/inputs.tfvars   apply -auto-approve
+             sh 'terraform $(ACTION) -var-file=env-${ENV}/inputs.tfvars  terraform apply -auto-approve
 
            }
        }
